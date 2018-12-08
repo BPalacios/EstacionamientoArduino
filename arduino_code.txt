@@ -1,0 +1,212 @@
+#include <Servo.h>
+const int sensorPinIN = 12;
+const int sensorPinOUT = 13;
+Servo servoMotorIN;
+Servo servoMotorOUT;
+int A=2;
+int B=3;
+int C=4;
+int D=5;
+int E=6;
+int F=7;
+int G=8;
+int cont=9;
+ int IN = 0;
+  int OUT = 0;
+
+void setup() {
+  for(int i=2;i<=9;i++){
+  pinMode(i,OUTPUT);//pines de salida, del 2 al 8
+  }
+ pinMode(sensorPinIN , INPUT);  //definir pin como entrada (para entrada)
+  pinMode(sensorPinOUT , INPUT);  //definir pin como entrada(para salida)
+  servoMotorIN.attach(11);
+  servoMotorOUT.attach(10);
+
+  
+  Serial.begin(9600);
+}
+
+void cero(){
+  digitalWrite(A,1);//  escribir 0 
+  digitalWrite(B,1);
+  digitalWrite(C,1);
+  digitalWrite(D,0);
+  digitalWrite(E,1);
+  digitalWrite(F,1);
+  digitalWrite(G,1);
+}
+
+void uno(){
+  digitalWrite(A,0);//  escribir 1
+  digitalWrite(B,0);
+  digitalWrite(C,1);
+  digitalWrite(D,0);
+  digitalWrite(E,0);
+  digitalWrite(F,0);
+  digitalWrite(G,1);
+}
+
+void dos(){
+  digitalWrite(A,1);//  escribir 2
+  digitalWrite(B,1);
+  digitalWrite(C,0);
+  digitalWrite(D,1);
+  digitalWrite(E,0);
+  digitalWrite(F,1);
+  digitalWrite(G,1);
+}
+
+void tres(){
+  digitalWrite(A,0);//  escribir 3
+  digitalWrite(B,1);
+  digitalWrite(C,1);
+  digitalWrite(D,1);
+  digitalWrite(E,0);
+  digitalWrite(F,1);
+  digitalWrite(G,1);
+}
+
+void cuatro(){
+  digitalWrite(A,0);//  escribir 4
+  digitalWrite(B,0);
+  digitalWrite(C,1);
+  digitalWrite(D,1);
+  digitalWrite(E,1);
+  digitalWrite(F,0);
+  digitalWrite(G,1);
+}  
+
+void cinco(){
+  digitalWrite(A,0);//  escribir 5
+  digitalWrite(B,1);
+  digitalWrite(C,1);
+  digitalWrite(D,1);
+  digitalWrite(E,1);
+  digitalWrite(F,1);
+  digitalWrite(G,0);
+}
+
+void seis(){
+  digitalWrite(A,1);//  escribir 6
+  digitalWrite(B,1);
+  digitalWrite(C,1);
+  digitalWrite(D,1);
+  digitalWrite(E,1);
+  digitalWrite(F,1);
+  digitalWrite(G,0);
+}
+
+void siete(){
+  digitalWrite(A,0);//  escribir 7
+  digitalWrite(B,0);
+  digitalWrite(C,1);
+  digitalWrite(D,0);
+  digitalWrite(E,0);
+  digitalWrite(F,1);
+  digitalWrite(G,1);
+}
+
+void ocho(){
+  digitalWrite(A,1);//  escribir 8
+  digitalWrite(B,1);
+  digitalWrite(C,1);
+  digitalWrite(D,1);
+  digitalWrite(E,1);
+  digitalWrite(F,1);
+  digitalWrite(G,1);
+}
+
+void nueve(){
+  digitalWrite(A,0);//  escribir 9
+  digitalWrite(B,1);
+  digitalWrite(C,1);
+  digitalWrite(D,1);
+  digitalWrite(E,1);
+  digitalWrite(F,1);
+  digitalWrite(G,1);
+}
+void contador(){
+
+  switch (cont){
+              case 0:
+              cero();
+              break;
+
+              case 1:
+              uno();
+              break;
+
+              case 2:
+              dos();
+              break;
+
+              case 3:
+              tres();
+              break;
+
+              case 4:
+              cuatro();
+              break;
+              
+              case 5:
+              cinco();
+              break;
+              
+              case 6:
+              seis();
+              break;
+              
+              case 7:
+              siete();
+              break;
+              
+              case 8:
+              ocho();
+              break;
+              
+              case 9:
+              nueve();
+              break;
+  }
+
+}
+void loop() {
+   
+contador();
+  IN = digitalRead(sensorPinIN );  //lectura digital de pin entrada
+  OUT = digitalRead(sensorPinOUT );  //lectura digital de pin salida
+ 
+ if (IN == HIGH) {
+      servoMotorIN.write(00);
+  }
+
+   if (IN == LOW && cont>0) {
+      delay(300);
+      servoMotorIN.write(90);
+      {delay(3000);
+      contador();
+      cont--;
+     } 
+  }
+  
+  if (OUT == HIGH) {
+      servoMotorOUT.write(0);
+     
+     
+  }  
+
+  if (OUT == LOW&& cont<9) {
+      delay(300);
+      servoMotorOUT.write(90);
+      {delay(3000);
+      contador();
+      cont++;
+     } 
+      
+  }
+   
+ 
+ 
+
+}
